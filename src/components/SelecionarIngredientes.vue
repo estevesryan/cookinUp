@@ -1,11 +1,16 @@
 <script lang="ts">
 import { obterCategorias } from '@/http/index';
+import type ICategoria from '@/interfaces/ICategoria';
 
 export default {
   data() {
     return {
-      categorias: obterCategorias(),
+      categorias: [] as ICategoria[],
     };
+  },
+
+  async created() {
+    this.categorias = await obterCategorias();
   },
 };
 </script>
@@ -20,7 +25,7 @@ export default {
 
     <ul class="categorias">
       <li v-for="categoria in categorias" :key="categoria.nome">
-        {{ categoria }}
+        {{ categoria.nome }}
       </li>
     </ul>
 
