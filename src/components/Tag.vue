@@ -7,13 +7,13 @@ export default {
 </script>
 
 <template>
-  <span class="ingrediente">
+  <span class="tag">
     {{ texto }}
   </span>
 </template>
 
 <style scoped>
-.ingrediente {
+.tag {
   display: inline-block;
   border-radius: 0.5rem;
   min-width: 4.25rem;
