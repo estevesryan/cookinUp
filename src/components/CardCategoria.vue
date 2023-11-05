@@ -1,13 +1,13 @@
 <script lang="ts">
 import type ICategoria from '@/interfaces/ICategoria';
 import type { PropType } from 'vue';
-import Tag from './Tag.vue';
+import Ingrediente from './Ingrediente.vue';
 
 export default {
   props: {
     categoria: { type: Object as PropType<ICategoria>, required: true },
   },
-  components: { Tag },
+  components: { Ingrediente },
 };
 </script>
 
@@ -26,8 +26,8 @@ export default {
     </heaer>
 
     <ul class="categoria__ingredientes">
-      <li v-for="ingrediente in categoria.ingredientes">
-        <Tag :texto="ingrediente" />
+      <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
+        <Ingrediente :ingrediente="ingrediente" />
       </li>
     </ul>
   </article>
