@@ -6,10 +6,23 @@ import Tag from './Tag.vue';
 export default {
   data() {
     return {
-      ingredientes: ['Alho', 'Manteiga', 'Orégano'],
+      ingredientes: [] as string[],
     };
   },
   components: { SelecionarIngredientes, Tag, Sualista },
+  methods: {
+    adicionarIngrediente(ingrediente: string) {
+      if (this.ingredientes.indexOf(ingrediente) === -1) {
+        this.ingredientes.push(ingrediente);
+      }
+    },
+
+    removerIngrediente(ingrediente: string) {
+      this.ingredientes = this.ingredientes.filter(
+        (Iingrediente) => ingrediente !== Iingrediente
+      );
+    },
+  },
 };
 </script>
 
@@ -17,7 +30,10 @@ export default {
   <main class="conteudo-principal">
     <Sualista :ingredientes="ingredientes" />
 
-    <SelecionarIngredientes />
+    <SelecionarIngredientes
+      @adicionar-ingrediente="adicionarIngrediente"
+      @remover-ingrediente="removerIngrediente"
+    />
   </main>
 </template>
 
