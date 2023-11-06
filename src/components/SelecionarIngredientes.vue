@@ -20,7 +20,7 @@ export default {
     this.categorias = await obterCategorias();
   },
   components: { CardCategoria, BotaoPrincipal, Footer },
-  emits: ['adicionarIngrediente', 'removerIngrediente'],
+  emits: ['adicionarIngrediente', 'removerIngrediente', 'buscarReceitas'],
 };
 </script>
 
@@ -47,7 +47,7 @@ export default {
     </p>
   </section>
 
-  <BotaoPrincipal texto="Porucrar receitas" />
+  <BotaoPrincipal @click="$emit('buscarReceitas')" texto="Porucrar receitas!"/>
 </template>
 
 <style scoped>

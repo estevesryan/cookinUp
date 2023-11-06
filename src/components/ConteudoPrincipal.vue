@@ -1,14 +1,34 @@
+<template>
+  <main class="conteudo-principal">
+    <Sualista :ingredientes="ingredientes" />
+
+    <SelecionarIngredientes
+      v-if="conteudo === 'SelecionarIngredientes'"
+      @adicionar-ingrediente="adicionarIngrediente"
+      @remover-ingrediente="removerIngrediente"
+      @buscar-receitas="buscarReceitas"
+    />
+
+    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+  </main>
+  <Footer />
+</template>
+
 <script lang="ts">
 import BotaoPrincipal from './BotaoPrincipal.vue';
 import Footer from './Footer.vue';
+import MostrarReceitas from './MostrarReceitas.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import Sualista from './Sualista.vue';
 import Tag from './Tag.vue';
+
+type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas';
 
 export default {
   data() {
     return {
       ingredientes: [] as string[],
+      conteudo: 'SelecionarIngredientes' as Pagina,
     };
   },
   components: {
@@ -17,6 +37,7 @@ export default {
     Sualista,
     BotaoPrincipal,
     Footer,
+    MostrarReceitas,
   },
   methods: {
     adicionarIngrediente(ingrediente: string) {
@@ -30,21 +51,17 @@ export default {
         (Iingrediente) => ingrediente !== Iingrediente
       );
     },
+
+    buscarReceitas() {
+      if (this.ingredientes.length != 0) {
+        this.conteudo = 'MostrarReceitas';
+      } else {
+        window.alert('Voce precisa adicionar um ingrediente!');
+      }
+    },
   },
 };
 </script>
-
-<template>
-  <main class="conteudo-principal">
-    <Sualista :ingredientes="ingredientes" />
-
-    <SelecionarIngredientes
-      @adicionar-ingrediente="adicionarIngrediente"
-      @remover-ingrediente="removerIngrediente"
-    />
-  </main>
-  <Footer />
-</template>
 
 <style scoped>
 .conteudo-principal {
