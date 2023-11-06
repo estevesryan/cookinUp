@@ -9,7 +9,10 @@
       @buscar-receitas="buscarReceitas"
     />
 
-    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+    <MostrarReceitas
+      @editar-lista="conteudo = 'SelecionarIngredientes'"
+      v-else-if="conteudo === 'MostrarReceitas'"
+    />
   </main>
   <Footer />
 </template>
@@ -53,11 +56,7 @@ export default {
     },
 
     buscarReceitas() {
-      if (this.ingredientes.length != 0) {
-        this.conteudo = 'MostrarReceitas';
-      } else {
-        window.alert('Voce precisa adicionar um ingrediente!');
-      }
+      this.conteudo = 'MostrarReceitas';
     },
   },
 };
