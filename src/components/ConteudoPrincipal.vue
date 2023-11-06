@@ -1,4 +1,6 @@
 <script lang="ts">
+import BotaoPrincipal from './BotaoPrincipal.vue';
+import Footer from './Footer.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import Sualista from './Sualista.vue';
 import Tag from './Tag.vue';
@@ -9,7 +11,13 @@ export default {
       ingredientes: [] as string[],
     };
   },
-  components: { SelecionarIngredientes, Tag, Sualista },
+  components: {
+    SelecionarIngredientes,
+    Tag,
+    Sualista,
+    BotaoPrincipal,
+    Footer,
+  },
   methods: {
     adicionarIngrediente(ingrediente: string) {
       if (this.ingredientes.indexOf(ingrediente) === -1) {
@@ -35,6 +43,7 @@ export default {
       @remover-ingrediente="removerIngrediente"
     />
   </main>
+  <Footer />
 </template>
 
 <style scoped>
