@@ -2,17 +2,20 @@
   <main class="conteudo-principal">
     <Sualista :ingredientes="ingredientes" />
 
-    <SelecionarIngredientes
-      v-if="conteudo === 'SelecionarIngredientes'"
-      @adicionar-ingrediente="adicionarIngrediente"
-      @remover-ingrediente="removerIngrediente"
-      @buscar-receitas="buscarReceitas"
-    />
+    <KeepAlive include="SelecionarIngredientes">
+      <SelecionarIngredientes
+        v-if="conteudo === 'SelecionarIngredientes'"
+        @adicionar-ingrediente="adicionarIngrediente"
+        @remover-ingrediente="removerIngrediente"
+        @buscar-receitas="buscarReceitas"
+      />
 
-    <MostrarReceitas
-      @editar-lista="conteudo = 'SelecionarIngredientes'"
-      v-else-if="conteudo === 'MostrarReceitas'"
-    />
+      <MostrarReceitas
+        :ingredientes="ingredientes"
+        @editar-lista="conteudo = 'SelecionarIngredientes'"
+        v-else-if="conteudo === 'MostrarReceitas'"
+      />
+    </KeepAlive>
   </main>
   <Footer />
 </template>

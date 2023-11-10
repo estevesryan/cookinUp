@@ -2,17 +2,17 @@
   <section class="mostrar-receitas">
     <h1 class="cabecalho titulo-receitas">Receitas</h1>
     <p class="paragrafo-lg resultados-encontrados">
-      Resultados encontrados: {{ receitas.length }}
+      Resultados encontrados: {{ receitasEncontradas.length }}
     </p>
 
-    <div v-if="receitas.length" class="receitas-wrapper">
+    <div v-if="receitasEncontradas.length" class="receitas-wrapper">
       <p class="paragrafo-lg informacoes">
         Veja as opções de receitas que encontramos com os ingredientes que você
         tem por aí!
       </p>
 
       <ul class="receitas">
-        <li v-for="receita in receitas" :key="receita.nome">
+        <li v-for="receita in receitasEncontradas" :key="receita.nome">
           <CardReceita :receita="receita" />
         </li>
       </ul>
@@ -39,16 +39,28 @@ import type Ireceitas from '@/interfaces/IReceita';
 import BotaoPrincipal from './BotaoPrincipal.vue';
 import { obterReceita } from '@/http';
 import CardReceita from './CardReceita.vue';
+import type { PropType } from 'vue';
+import { itensDeLista1EstaoEmLista2 } from '@/operacoes/lista';
 
 export default {
+  props: {
+    ingredientes: { type: Array as PropType<string[]>, required: true },
+  },
   components: { BotaoPrincipal, CardReceita },
   data() {
-    return { receitas: [] as Ireceitas[] };
+    return { receitasEncontradas: [] as Ireceitas[] };
   },
 
   async created() {
     const receitas = await obterReceita();
-    this.receitas = receitas.slice(0, 8);
+    this.receitasEncontradas = receitas.filter((receita) => {
+      const possoFazerReceita = itensDeLista1EstaoEmLista2(
+        receita.ingredientes,
+        this.ingredientes
+      );
+
+      return possoFazerReceita;
+    });
   },
 };
 </script>

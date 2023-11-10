@@ -6,6 +6,7 @@ import BotaoPrincipal from './BotaoPrincipal.vue';
 import Footer from './Footer.vue';
 
 export default {
+  name: 'SelecionarIngredientes',
   props: {
     texto: {
       type: String,
@@ -47,7 +48,7 @@ export default {
     </p>
   </section>
 
-  <BotaoPrincipal @click="$emit('buscarReceitas')" texto="Porucrar receitas!"/>
+  <BotaoPrincipal @click="$emit('buscarReceitas')" texto="Porucrar receitas!" />
 </template>
 
 <style scoped>
